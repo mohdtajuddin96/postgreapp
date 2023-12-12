@@ -22,9 +22,8 @@ const addStudent = async (req, res) => {
   const { name, email, dbo, salary } = req.body;
   try {
     const adresult = await db.query(queries.addStudent, [name, email, dbo, salary])
-    res.status(201).json("Student added Successfully!");
+    res.status(201).json({ message: "Student added Successfully!", item: adresult.rows });
   } catch (err) {
-    console.log(err);
     createError.InternalServerError(err.message)
   }
 };
@@ -34,7 +33,7 @@ const updateStudent = async (req, res) => {
   const { name } = req.body
   try {
     const updresult = await db.query(queries.updateStudent, [name, id]);
-    res.status(200).json("Student updated Successfully!");
+    res.status(200).json({ message: "Student updated Successfully!", item: updresult.rows });
   } catch (error) {
     createError.InternalServerError(error.message)
   }
