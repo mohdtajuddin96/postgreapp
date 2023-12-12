@@ -20,7 +20,7 @@ const addStudent = (req, res) => {
   const { name, email, dbo, salary } = req.body;
   db.query(`INSERT INTO "students" ("name","email", "dbo","salary")  VALUES ($1, $2, $3, $4)`, [name, email, dbo, salary], (err, result) => {
     if (err) createError.InternalServerError(err.message)
-    res.status(200).json("Student added Successfully!");
+    res.status(200).json(result);
   });
 };
 const updateStudent = (req, res) => {
