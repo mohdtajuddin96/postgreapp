@@ -5,7 +5,10 @@ const createError=require('http-errors')
 const getStudents = (req, res) => {
   db.query(queries.getStudents, (err, result) => {
     if (err) createError.InternalServerError(err.message)
+    if(result)
     res.status(200).json(result.rows);
+  else
+  res.status(401).json('Record not found')
   });
 };
 const getStudentById = (req, res) => {
