@@ -1,14 +1,14 @@
 const queries = require("./queries");
 const db = require("../../dbConfig");
-const createError=require('http-errors')
+const createError = require('http-errors')
 
 const getStudents = (req, res) => {
   db.query(queries.getStudents, (err, result) => {
     if (err) createError.InternalServerError(err.message)
-    if(result)
-    res.status(200).json(result.rows);
-  else
-  res.status(401).json('Record not found')
+    if (result)
+      res.status(200).json(result.rows);
+    else
+      res.status(401).json('Record not found')
   });
 };
 const getStudentById = (req, res) => {
@@ -26,22 +26,22 @@ const addStudent = (req, res) => {
   });
 };
 const updateStudent = (req, res) => {
-    var id = parseInt(req.params.id)
-    const {name}=req.body
-    db.query(queries.updateStudent, [name,id], (err, result) => {
-      if (err) createError.InternalServerError(err.message)
-      res.status(200).json("Student updated Successfully!");
-    });
-  };
+  var id = parseInt(req.params.id)
+  const { name } = req.body
+  db.query(queries.updateStudent, [name, id], (err, result) => {
+    if (err) createError.InternalServerError(err.message)
+    res.status(200).json("Student updated Successfully!");
+  });
+};
 
 
 const deleteStudent = (req, res) => {
-    var id = parseInt(req.params.id);
-    db.query(queries.deleteStudent, [id], (err, result) => {
-      if (err) createError.InternalServerError(err.message)
-      res.status(200).json("Student deleted Successfully!");
-    });
-  };
+  var id = parseInt(req.params.id);
+  db.query(queries.deleteStudent, [id], (err, result) => {
+    if (err) createError.InternalServerError(err.message)
+    res.status(200).json("Student deleted Successfully!");
+  });
+};
 
 module.exports = {
   getStudents,

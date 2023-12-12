@@ -1,4 +1,5 @@
-const { Pool } = require('pg')
+const { Pool,Client } = require('pg')
+const createError = require('http-errors')
 
 const poolConfig = { max: 5, min: 2, idleTimeoutMillis: 600000 }
 const DataBase = 'ems_pg_db'
@@ -10,5 +11,10 @@ const Port = 5432
 poolConfig.connectionString = `postgres://${UserName}:${Password}@${Host}:${Port}/${DataBase}`
 
 const db = new Pool(poolConfig)
-console.log(await db.query('SELECT NOW()'))
+
+db.connect(function(err) {
+    if (err) createError.InternalServerError(err.message)
+    console.log("Database Connected!");
+  });
+
 module.exports = db
