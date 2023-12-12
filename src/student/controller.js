@@ -8,7 +8,7 @@ const getStudents = (req, res) => {
     if (result)
       res.status(200).json(result.rows);
     else
-      res.status(401).json('Record not found')
+      res.status(401).json(result)
   });
 };
 const getStudentById = (req, res) => {
