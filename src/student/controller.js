@@ -5,10 +5,8 @@ const createError = require('http-errors')
 const getStudents = (req, res) => {
   db.query(queries.getStudents, (err, result) => {
     if (err) createError.InternalServerError(err.message)
-    if (result)
-      res.status(200).json(result.rows);
-    else
-      res.status(401).json(result)
+    res.status(200).json(result.rows);
+
   });
 };
 const getStudentById = (req, res) => {
@@ -20,7 +18,7 @@ const getStudentById = (req, res) => {
 };
 const addStudent = (req, res) => {
   const { name, email, dbo, salary } = req.body;
-  db.query(queries.addStudent, [name, email, dbo, salary], (err, result) => {
+  db.query(`INSERT INTO "students" ("name","email", "dbo","salary")  VALUES ($1, $2, $3, $4)`, [name, email, dbo, salary], (err, result) => {
     if (err) createError.InternalServerError(err.message)
     res.status(200).json("Student added Successfully!");
   });
