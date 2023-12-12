@@ -20,24 +20,24 @@ const getStudentById = (req, res) => {
 
 const addStudent = async (req, res) => {
   const { name, email, dbo, salary } = req.body;
-  console.log(req.body)
   try {
-    const adresult = await db.query('INSERT INTO students (name,email,dbo,salary) VALUES ($1, $2, $3, $4) RETURNING *', [name, email, dbo, salary])
-    res.status(200).json(adresult);
+    const adresult = await db.query(queries.addStudent, [name, email, dbo, salary])
+    res.status(201).json("Student added Successfully!");
   } catch (err) {
     console.log(err);
     createError.InternalServerError(err.message)
   }
-
 };
 
-const updateStudent = (req, res) => {
+const updateStudent = async (req, res) => {
   var id = parseInt(req.params.id)
   const { name } = req.body
-  db.query(queries.updateStudent, [name, id], (err, result) => {
-    if (err) createError.InternalServerError(err.message)
+  try {
+    const updresult = await db.query(queries.updateStudent, [name, id]);
     res.status(200).json("Student updated Successfully!");
-  });
+  } catch (error) {
+    createError.InternalServerError(error.message)
+  }
 };
 
 const deleteStudent = (req, res) => {
