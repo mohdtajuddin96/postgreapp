@@ -10,5 +10,5 @@ const Port = 5432
 poolConfig.connectionString = `postgres://${UserName}:${Password}@${Host}:${Port}/${DataBase}`
 
 const db = new Pool(poolConfig)
-
+console.log(await db.query('SELECT NOW()'))
 module.exports = db
