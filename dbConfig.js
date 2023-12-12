@@ -7,10 +7,10 @@ const Password = 'GOucjjRTqNJrIGtp2SEIR0viSx5DafyM'
 const Host = 'dpg-clrvo3bip8as73a195o0-a'
 const Port = 5432
 
-poolConfig.connectionString = `postgres://${UserName}:${Password}@${Host}:${Port}/${DataBase}`
+const conn = `postgres://${UserName}:${Password}@${Host}:${Port}/${DataBase}`
 
 const db = new Pool({
-    connectionString: poolConfig,
+    connectionString: conn,
     ssl: { rejectUnauthorized: false }
 })
 
