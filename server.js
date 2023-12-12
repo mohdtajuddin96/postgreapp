@@ -6,4 +6,4 @@ const port = 3000
 app.use(express.json())
 app.use('/api/v1/students', studentRoutes)
 
-app.listen(port, () => console.log(`Server Up and Running`))
+app.listen()
