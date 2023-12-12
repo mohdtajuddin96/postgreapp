@@ -1,9 +1,18 @@
 const express = require('express')
+const createError = require('http-errors')
 const studentRoutes = require('./src/student/routes')
+const errHandler = require('./helper/errorHandler')
+
 const app = express()
 
-const port = 3000
+const Port = 3000
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 app.use('/api/v1/students', studentRoutes)
 
-app.listen()
+
+app.use(async (req, res, next) => { next(createError.NotFound()) })
+app.use(errHandler)
+
+app.listen(Port,()=>console.log(`Server up and running on ${Port}`))
