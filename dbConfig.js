@@ -9,6 +9,9 @@ const Port = 5432
 
 poolConfig.connectionString = `postgres://${UserName}:${Password}@${Host}:${Port}/${DataBase}`
 
-const db = new Pool(poolConfig)
+const db = new Pool({
+    connectionString: poolConfig,
+    ssl: { rejectUnauthorized: false }
+})
 
 module.exports = db
