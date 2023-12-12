@@ -18,7 +18,8 @@ const getStudentById = (req, res) => {
 };
 const addStudent = (req, res) => {
   const { name, email, dbo, salary } = req.body;
-  db.query(`INSERT INTO "students" ("name","email", "dbo","salary")  VALUES ($1, $2, $3, $4)`, [name, email, dbo, salary], (err, result) => {
+  console.log(req.body)
+  db.query('INSERT INTO students (name,email,dbo,salary)  VALUES ($1, $2, $3, $4)', [name, email, dbo, salary], (err, result) => {
     if (err) createError.InternalServerError(err.message)
     res.status(200).json(result);
   });
