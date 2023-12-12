@@ -18,13 +18,17 @@ const getStudentById = (req, res) => {
   });
 };
 
-const addStudent = (req, res) => {
+const addStudent = async (req, res) => {
   const { name, email, dbo, salary } = req.body;
   console.log(req.body)
-  db.query('INSERT INTO public.students (name,email,dbo,salary)  VALUES ($1, $2, $3, $4) RETURNING *', [name, email, dbo, salary], (err, result) => {
-    if (err) createError.InternalServerError(err.message)
-    res.status(200).json(result);
-  });
+  try {
+    const adresult = await db.query('INSERT INTO students (name,email,dbo,salary) VALUES ($1, $2, $3, $4) RETURNING *', [name, email, dbo, salary])
+    res.status(200).json(adresult);
+  } catch (err) {
+    console.log(err);
+    createError.InternalServerError(err.message)
+  }
+
 };
 
 const updateStudent = (req, res) => {
