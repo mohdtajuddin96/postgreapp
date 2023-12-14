@@ -16,8 +16,7 @@ const addEmployee = (req, res) => {
 const insertEmployee = async (req, res) => {
     const { name, email, phone } = req.body;
     try {
-        const adresult = await db.query(queries.addEmp, [name, email, phone, req.file.filename])
-        req.session.message = { type: 'success', message: 'Employee added Successfully!' }
+        const adresult = await db.query(queries.addEmp, [name, email, phone, req.file.filename])       
         res.redirect('/')
     } catch (err) {
         console.log(err.message)
